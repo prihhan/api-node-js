@@ -11,7 +11,7 @@ test.describe('User management API', () => {
         const responseBody = await response.json()
         const userId = await responseBody.id;
         const getResponse = await request.get(baseURL + '/' + userId);
-        expect(getResponse.status()).toBe(200);
+        expect(getResponse.status()).toBe(StatusCodes.OK);
     });
 
     test('find user: should return 404 if user not found', async ({ request }) => {
