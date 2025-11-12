@@ -11,7 +11,7 @@ export async function cleanupUsers(request: APIRequestContext) {
     const users = await getAllResponse.json();
 
     //populate user IDs
-    const userIDs: string[] = [];
+    const userIDs: number[] = [];
     for (let i = 0; i < users.length; i++) {
         userIDs.push(users[i].id);
     }
