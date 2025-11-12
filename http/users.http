@@ -9,4 +9,7 @@ POST http://localhost:3000/users
 GET http://localhost:3000/users/95
 
 ### delete user by id
-DELETE http://localhost:3000/users/87
+DELETE http://localhost:3000/users/79
+
+
+80, 79

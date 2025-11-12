@@ -1,11 +1,16 @@
 // tests/api.spec.ts
 import { test, expect } from '@playwright/test';
 import {StatusCodes} from "http-status-codes";
+import {cleanupUsers} from "./helpers/cleanupUsers";
 
 
 let baseURL: string = 'http://localhost:3000/users';
 
 test.describe('User management API', () => {
+    test.beforeEach(async ({ request }) => {
+        await cleanupUsers(request);
+    });
+
     test('find user: should return a user by ID', async ({ request }) => {
         const response = await request.post(`${baseURL}`);
         const responseBody = await response.json()
@@ -48,4 +53,22 @@ test.describe('User management API', () => {
         console.log('Response body:', responseBody);
     });
 
-});
+    test('half working test: get user id information', async ({ request }) => {
+        const responseCreate1 = await request.post(`${baseURL}`);
+        const responseCreate2 = await request.post(`${baseURL}`);
+        const responseAllUsers = await request.get(`${baseURL}`);
+        const responseUsers = await responseAllUsers.json();
+
+        const numberOfObjects = responseUsers.length;
+        console.log('number of objects', numberOfObjects);
+
+        let userIDs: number[] = [];
+        for (let i = 0; i < numberOfObjects; i++) {
+            // get user ID from the response
+            const userID = responseUsers[i].id;
+            // push is used to add elements to the end of an array
+            userIDs.push(userID);
+        }
+        console.log('userIDs:', userIDs);
+    })
+})
